@@ -2,8 +2,11 @@ package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.domain.SongList;
+import com.example.demo.service.RecommendSongListService;
 import com.example.demo.service.impl.SongListServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,9 @@ public class SongListController {
 
     @Autowired
     private SongListServiceImpl songListService;
+
+    @Autowired
+    private RecommendSongListService recommendSongListService;
 
     @Configuration
     public class MyPicConfig implements WebMvcConfigurer {
@@ -61,8 +67,21 @@ public class SongListController {
 
 //    返回所有歌单
     @RequestMapping(value = "/songList", method = RequestMethod.GET)
-    public Object allSongList(){
-        return songListService.allSongList();
+    public Object allSongList(HttpServletRequest req, @RequestParam(value = "userId",required = false,defaultValue = "2") String userId){
+        //String userId = req.getParameter("userId");
+//        return songListService.allSongList();
+        //如果userId为空就返回所有歌单
+        if(StringUtils.isBlank(String.valueOf(userId))){
+            return songListService.allSongList();
+        }
+        int id;
+        try {
+            id = Integer.parseInt(userId);
+        } catch (NumberFormatException e) {
+            id = 2;
+            e.printStackTrace();
+        }
+        return recommendSongListService.recommendSongListByCollect(id);
     }
 
 //    返回指定标题对应的歌单

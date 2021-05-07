@@ -1,14 +1,26 @@
 package com.example.demo;
 
-import com.example.demo.domain.Consumer;
+import com.example.demo.dao.CollectMapper;
+import com.example.demo.dao.ListSongMapper;
+import com.example.demo.dao.RankMapper;
+import com.example.demo.dao.SongMapper;
+import com.example.demo.domain.*;
+import com.example.demo.recommend.dto.ProductDTO;
+import com.example.demo.recommend.dto.RelateDTO;
+import com.example.demo.service.RecommendSongListService;
 import com.example.demo.service.impl.ConsumerServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,6 +32,8 @@ public class MusicApplicationTests {
 //    private SongListServiceImpl songListService;
     private ConsumerServiceImpl consumerService;
 //    private RankServiceImpl rankService;
+
+
 
 //    @Test
 //    public void contextLoads() {
@@ -110,5 +124,130 @@ public void consumerTest(){
 //    {
 //        System.out.println(consumerService.allUser());
 //    }
+
+
+
+    @Autowired
+    private RankMapper rankMapper;
+
+    @Autowired
+    private CollectMapper collectMapper;
+
+    @Test
+    public void batchInsertCollect(){
+        for(int i = 0; i < 500; i++){
+            Collect collect = new Collect();
+            collect.setUserId(new Random().nextInt(20) + 1);
+            collect.setType((byte)0);
+            collect.setSongId(new Random().nextInt(50) + 1);
+            collect.setCreateTime(new Date());
+            collectMapper.insertSelective(collect);
+        }
+/*        Collect collect = new Collect();
+        collect.setUserId(new Random().nextInt(50) + 1);
+        collect.setType((byte)0);
+        collect.setSongId(new Random().nextInt(111) + 1);
+        collect.setCreateTime(new Date());
+        collectMapper.insertSelective(collect);*/
+    }
+
+    @Test
+    public void batchInsertRank(){
+        for(int i = 1; i < 200; i++){
+            Rank rank = new Rank();
+            rank.setConsumerId((long)new Random().nextInt(50) + 1);
+            rank.setSongListId((long)new Random().nextInt(84) + 1);
+            rank.setScore((int)(Math.random()*10+1));
+            rankMapper.insertSelective(rank);
+        }
+/*        Rank rank = new Rank();
+        rank.setConsumerId((long)new Random().nextInt(50) + 1);
+        rank.setSongListId((long)new Random().nextInt(84) + 1);
+        rank.setScore((int)(Math.random()*10+1));
+        System.out.println(rank);
+        rankMapper.insert(rank);*/
+
+    }
+
+    @Autowired
+    private RecommendSongListService recommendSongListService;
+
+    @Test
+    public void getRankDataTest(){
+        List<RelateDTO> rankData = recommendSongListService.getRankData();
+        for (RelateDTO rankDatum : rankData) {
+            System.out.println(rankDatum);
+        }
+    }
+    @Test
+    public void testGetSongListData() {
+        List<ProductDTO> songListData = recommendSongListService.getSongListData();
+        for (ProductDTO songListDatum : songListData) {
+            System.out.println(songListDatum);
+        }
+    }
+
+    @Test
+    public void testRecommendSongList() {
+        List<SongList> songLists = recommendSongListService.recommendSongListByRank(5);
+        System.out.println("推荐歌单数量=" + songLists.size());
+        for (SongList songList : songLists) {
+            System.out.println(songList);
+        }
+    }
+
+    @Test
+    public void testGetSongData(){
+        List<ProductDTO> songData = recommendSongListService.getSongData();
+        System.out.println("-----------songs=" + songData.size());
+    }
+
+    @Test
+    public void testGetCollect(){
+        List<RelateDTO> collectData = recommendSongListService.getCollectData();
+        System.out.println("collectData = " + collectData.size());
+    }
+    @Autowired
+    private ListSongMapper listSongMapper;
+    @Test
+    public void testRecommendSongs(){
+        List<Song> songs = recommendSongListService.recommendSongs(2);
+        System.out.println("recommend songs = " + songs.size() );
+        for (Song song : songs) {
+            System.out.println("songId = " + song.getId());
+        }
+
+        List<ListSong> listSongLists = listSongMapper.allListSong();
+        //System.out.println("listSongLists = " + listSongLists.size());
+        List<ListSong> listSongList1 = new ArrayList<>();
+        List<Integer> songIds = songs.stream().map(e -> e.getId()).collect(Collectors.toList());
+        List<ListSong> listSongs = listSongLists.stream().filter(e -> songIds.contains(e.getSongId())).collect(Collectors.toList());
+/*        for (Song song : songs) {
+            for (ListSong listSongList : listSongLists) {
+                if(song.getId() == listSongList.getSongId()){
+                    listSongList1.add(listSongList);
+                }
+            }
+        }
+        System.out.println(listSongList1.size());*/
+        System.out.println(listSongs.size());
+    }
+
+    @Test
+    public void testRecommendSongListByCollect(){
+        List<SongList> songLists = recommendSongListService.recommendSongListByCollect(2);
+        System.out.println("推荐的歌单数量 = " + songLists.size());
+        for (SongList songList : songLists) {
+            System.out.println("songListId = " + songList.getId());
+        }
+    }
+    @Autowired
+    private SongMapper songMapper;
+    @Test
+    public void testSongMapper(){
+        Song song = songMapper.selectByPrimaryKey(1);
+        System.out.println(song);
+    }
 }
+
 
