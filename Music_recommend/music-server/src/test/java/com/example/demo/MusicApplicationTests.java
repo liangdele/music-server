@@ -211,7 +211,7 @@ public void consumerTest(){
     private ListSongMapper listSongMapper;
     @Test
     public void testRecommendSongs(){
-        List<Song> songs = recommendSongListService.recommendSongs(2);
+        List<Song> songs = recommendSongListService.recommendSongs(1);
         System.out.println("recommend songs = " + songs.size() );
         for (Song song : songs) {
             System.out.println("songId = " + song.getId());
@@ -235,7 +235,7 @@ public void consumerTest(){
 
     @Test
     public void testRecommendSongListByCollect(){
-        List<SongList> songLists = recommendSongListService.recommendSongListByCollect(2);
+        List<SongList> songLists = recommendSongListService.recommendSongListByCollect(3);
         System.out.println("推荐的歌单数量 = " + songLists.size());
         for (SongList songList : songLists) {
             System.out.println("songListId = " + songList.getId());

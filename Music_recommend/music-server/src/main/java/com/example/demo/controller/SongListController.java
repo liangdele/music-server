@@ -67,21 +67,21 @@ public class SongListController {
 
 //    返回所有歌单
     @RequestMapping(value = "/songList", method = RequestMethod.GET)
-    public Object allSongList(HttpServletRequest req, @RequestParam(value = "userId",required = false,defaultValue = "2") String userId){
+    public Object allSongList(HttpServletRequest req, @RequestParam(value = "userId",required = false,defaultValue = " ") String userId){
         //String userId = req.getParameter("userId");
 //        return songListService.allSongList();
         //如果userId为空就返回所有歌单
-        if(StringUtils.isBlank(String.valueOf(userId))){
+        if(StringUtils.isBlank(String.valueOf(userId))) {
             return songListService.allSongList();
         }
-        int id;
+        //如果用户id不能转为Integer
         try {
-            id = Integer.parseInt(userId);
+            int id = Integer.parseInt(userId);
         } catch (NumberFormatException e) {
-            id = 2;
             e.printStackTrace();
+            return songListService.allSongList();
         }
-        return recommendSongListService.recommendSongListByCollect(id);
+        return recommendSongListService.recommendSongListByCollect(Integer.parseInt(userId));
     }
 
 //    返回指定标题对应的歌单

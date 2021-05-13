@@ -51,8 +51,8 @@ public class RecommendServiceImpl implements RecommendSongListService {
             relateDTO.setUserId(collect.getUserId());
             relateDTO.setProductId(collect.getSongId());
             //1-10随机数模拟用户听歌次数
-            //relateDTO.setIndex((int)(Math.random()*10+1));
-            relateDTO.setIndex(1);
+            relateDTO.setIndex((int)(Math.random()*10+1));
+            //relateDTO.setIndex(1);
             relateDTOList.add(relateDTO);
         }
         if(CollectionUtils.isEmpty(relateDTOList)){

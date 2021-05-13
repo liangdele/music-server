@@ -18,6 +18,8 @@
 --
 -- Table structure for table `admin`
 --
+create database music_data;
+use music_data;
 
 DROP TABLE IF EXISTS `admin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

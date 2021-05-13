@@ -15,7 +15,7 @@ export const getUserOfId = (id) => get(`user/detail?id=${id}`)
 
 // =======================> 歌单 API
 // 获取全部歌单
-export const getSongList = () => get('songList')
+export const getSongList = (userId) => get(`songList?userId=${userId}`)
 // 获取歌单类型
 export const getSongListOfStyle = (style) => get(`songList/style/detail?style=${style}`)
 // 返回标题包含文字的歌单

@@ -47,7 +47,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'songsList'
+      'songsList',
+      'userId'
     ]),
     // 计算当前表格中的数据
     data () {
@@ -74,8 +75,8 @@ export default {
       }
     },
     // 获取全部歌单
-    getSongList (page) {
-      getSongList()
+    getSongList (page, userId) {
+      getSongList(userId)
         .then(res => {
           this.currentPage = 1
           this.albumDatas = res

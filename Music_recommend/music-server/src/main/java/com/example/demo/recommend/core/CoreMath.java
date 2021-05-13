@@ -26,7 +26,10 @@ public class CoreMath {
         Map<Double, Integer> distances = computeNearestNeighbor(userId, list);
         //取出相似度最近的用户id
         Integer nearest = distances.values().iterator().next();
-
+        Iterator<Integer> iterator = distances.values().iterator();
+        while(iterator.hasNext()){
+            nearest = iterator.next();
+        }
         Map<Integer, List<RelateDTO>> userMap =list.stream().collect(Collectors.groupingBy(RelateDTO::getUserId));
 
         //最近邻用户买过的商品id列表
@@ -53,10 +56,10 @@ public class CoreMath {
      */
     private Map<Double, Integer> computeNearestNeighbor(Integer userId, List<RelateDTO> list) {
         Map<Integer, List<RelateDTO>> userMap = list.stream().collect(Collectors.groupingBy(RelateDTO::getUserId));
-        //treemap是排好序的
+        //treemap是从小到大排好序的
         Map<Double, Integer> distances = new TreeMap<>();
         userMap.forEach((k,v)->{
-            if(k!=userId){
+            if(k.intValue() != userId.intValue()){
                 double distance = pearson_dis(v,userMap.get(userId));
                 distances.put(distance, k);
             }
@@ -76,7 +79,7 @@ public class CoreMath {
         List<Integer> ys= Lists.newArrayList();
         xList.forEach(x->{
             yList.forEach(y->{
-                if(x.getProductId()==y.getProductId()){
+                if(x.getProductId().intValue() == y.getProductId().intValue()){
                     xs.add(x.getIndex());
                     ys.add(y.getIndex());
                 }
