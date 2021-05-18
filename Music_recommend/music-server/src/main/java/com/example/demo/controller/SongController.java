@@ -42,8 +42,8 @@ public class SongController {
     public class MyPicConfig implements WebMvcConfigurer {
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            registry.addResourceHandler("/img/songPic/**").addResourceLocations("E:\\.IDEA projects\\Music_recommend\\Music_recommend\\music-server\\img\\songListPic\\");
-            registry.addResourceHandler("/song/**").addResourceLocations("E:\\.IDEA projects\\Music_recommend\\Music_recommend\\music-server\\song\\");
+            registry.addResourceHandler("/img/songPic/**").addResourceLocations("file:E:\\.IDEA projects\\Music_recommend\\Music_recommend\\music-server\\img\\songListPic\\");
+            registry.addResourceHandler("/song/**").addResourceLocations("file:E:\\.IDEA projects\\Music_recommend\\Music_recommend\\music-server\\song\\");
         }
     }
 

@@ -20,7 +20,7 @@ import { swiperList } from '../assets/data/swiper'
 import Swiper from '../components/Swiper'
 import ContentList from '../components/ContentList'
 import { getSongList, getAllSinger } from '../api/index'
-import {mapGetters} from "vuex";
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'home',
@@ -38,11 +38,13 @@ export default {
   computed: {
     ...mapGetters([
       'userId'
-    ]),
+    ])
+  },
   created () {
     this.swiperList = swiperList
     // 获取歌单列表
-    this.getSongList()
+    // eslint-disable-next-line no-undef
+    this.getSongList(this.userId)
     // 获取歌手列表
     this.getSingerList()
   },

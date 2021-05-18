@@ -29,7 +29,8 @@ public class SingerController {
     public class MyPicConfig implements WebMvcConfigurer {
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            registry.addResourceHandler("/img/singerPic/**").addResourceLocations("file:/Users/apple/IdeaProjects/Music_recommend/music-server/img/singerPic/");
+            //registry.addResourceHandler("/img/singerPic/**").addResourceLocations("file:/Users/apple/IdeaProjects/Music_recommend/music-server/img/singerPic/");
+            registry.addResourceHandler("/img/singerPic/**").addResourceLocations("file:E:\\.IDEA projects\\Music_recommend\\Music_recommend\\music-server\\img\\singerPic\\");
         }
     }
 

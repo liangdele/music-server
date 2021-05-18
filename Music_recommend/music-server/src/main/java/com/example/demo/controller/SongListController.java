@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import sun.misc.Request;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -33,7 +34,7 @@ public class SongListController {
     public class MyPicConfig implements WebMvcConfigurer {
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            registry.addResourceHandler("/img/songListPic/**").addResourceLocations("file:/Users/apple/IdeaProjects/Music_recommend/music-server/img/songListPic/");
+            registry.addResourceHandler("/img/songListPic/**").addResourceLocations("file:E:\\.IDEA projects\\Music_recommend\\Music_recommend\\music-server\\img\\songListPic\\");
         }
     }
 
@@ -64,24 +65,34 @@ public class SongListController {
             return jsonObject;
         }
     }
+//获取全部歌单
+    @RequestMapping(value = "/songList2",method = RequestMethod.GET)
+    public Object allSongList(){
+        return songListService.allSongList();
+    }
 
-//    返回所有歌单
+//    获取推荐歌单
     @RequestMapping(value = "/songList", method = RequestMethod.GET)
-    public Object allSongList(HttpServletRequest req, @RequestParam(value = "userId",required = false,defaultValue = " ") String userId){
-        //String userId = req.getParameter("userId");
+    public Object recommendSongList(HttpServletRequest req, @RequestParam(value = "userId",defaultValue = " ") String userId){
+//        String userId2 = req.getParameter("userId");
 //        return songListService.allSongList();
+        System.out.println("-------------userId=" + userId);
         //如果userId为空就返回所有歌单
-        if(StringUtils.isBlank(String.valueOf(userId))) {
+        if(StringUtils.isBlank(userId)) {
             return songListService.allSongList();
+        }else{
+            return recommendSongListService.recommendSongListByCollect(Integer.parseInt(userId));
         }
+
         //如果用户id不能转为Integer
-        try {
+/*        try {
+            System.out.println("-------------userId=" + userId);
             int id = Integer.parseInt(userId);
         } catch (NumberFormatException e) {
             e.printStackTrace();
             return songListService.allSongList();
-        }
-        return recommendSongListService.recommendSongListByCollect(Integer.parseInt(userId));
+        }*/
+
     }
 
 //    返回指定标题对应的歌单
