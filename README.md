@@ -78,7 +78,7 @@ Vue + Vue-Router + Vuex + Axios +  ElementUI
 #### 1、下载项目到本地
 
 ```
-git clone 
+git clone https://gitee.com/ygh996/Music_recommend.git
 ```
 
 #### 2、下载数据库中记录的资源（项目已经下好了不用下了）
