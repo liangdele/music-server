@@ -1,31 +1,23 @@
 package com.example.demo.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.demo.domain.Comment;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface CommentMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface CommentMapper extends BaseMapper<Comment> {
 
-    int insert(Comment record);
+  int insertSelective(Comment record);
 
-    int insertSelective(Comment record);
+  Comment selectByPrimaryKey(Integer id);
 
-    Comment selectByPrimaryKey(Integer id);
+  int updateByPrimaryKey(Comment record);
 
-    int updateByPrimaryKeySelective(Comment record);
+  int updateCommentMsg(Comment record);
 
-    int updateByPrimaryKey(Comment record);
+  int deleteComment(Integer id);
 
-    int updateCommentMsg(Comment record);
-
-    int deleteComment(Integer id);
-
-    List<Comment> allComment();
-
-    List<Comment> commentOfSongId(Integer songId);
-
-    List<Comment> commentOfSongListId(Integer songListId);
+  List<Comment> allComment();
 }

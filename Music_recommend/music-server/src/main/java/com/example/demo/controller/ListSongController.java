@@ -5,12 +5,10 @@ import com.example.demo.domain.ListSong;
 import com.example.demo.service.impl.ListSongServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @Controller
@@ -50,9 +48,8 @@ public class ListSongController {
     }
 
 //    返回歌单里指定歌单ID的歌曲
-    @RequestMapping(value = "/listSong/detail", method = RequestMethod.GET)
-    public Object listSongOfSongId(HttpServletRequest req){
-        String songListId = req.getParameter("songListId");
+    @GetMapping( "/listSong/detail")
+    public List<ListSong> listSongOfSongId(String songListId ){
         return listSongService.listSongOfSongId(Integer.parseInt(songListId));
     }
 

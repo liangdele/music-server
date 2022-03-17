@@ -44,10 +44,7 @@
     from song_list
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="allSongList" resultMap="ResultMapWithBLOBs">
-    select *
-    from song_list
-  </select>
+
   <select id="likeTitle" resultMap="ResultMapWithBLOBs">
     select *
     from song_list

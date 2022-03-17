@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @Controller
@@ -29,8 +30,11 @@ public class SingerController {
     public class MyPicConfig implements WebMvcConfigurer {
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            //registry.addResourceHandler("/img/singerPic/**").addResourceLocations("file:/Users/apple/IdeaProjects/Music_recommend/music-server/img/singerPic/");
-            registry.addResourceHandler("/img/singerPic/**").addResourceLocations("file:E:\\.IDEA projects\\Music_recommend\\Music_recommend\\music-server\\img\\singerPic\\");
+      // registry.addResourceHandler("/img/singerPic/**").addResourceLocations("file:/Users/apple/IdeaProjects/Music_recommend/music-server/img/singerPic/");
+      registry
+          .addResourceHandler("/img/singerPic/**")
+          .addResourceLocations(
+              "file:E:\\Users\\Lenovo\\Desktop\\Music_recommend\\Music_recommend\\music-server\\img\\singerPic\\");
         }
     }
 
@@ -74,22 +78,20 @@ public class SingerController {
     }
 
 //    返回所有歌手
-    @RequestMapping(value = "/singer", method = RequestMethod.GET)
-    public Object allSinger(){
+    @GetMapping("/singer")
+    public List<Singer> allSinger(){
         return singerService.allSinger();
     }
 
 //    根据歌手名查找歌手
-    @RequestMapping(value = "/singer/name/detail", method = RequestMethod.GET)
-    public Object singerOfName(HttpServletRequest req){
-        String name = req.getParameter("name").trim();
+    @GetMapping( "/singer/name/detail")
+    public List<Singer> singerOfName(String name){
         return singerService.singerOfName(name);
     }
 
 //    根据歌手性别查找歌手
-    @RequestMapping(value = "/singer/sex/detail", method = RequestMethod.GET)
-    public Object singerOfSex(HttpServletRequest req){
-        String sex = req.getParameter("sex").trim();
+    @GetMapping( "/singer/sex/detail")
+    public List<Singer>  singerOfSex(String sex ){
         return singerService.singerOfSex(Integer.parseInt(sex));
     }
 

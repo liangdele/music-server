@@ -324,6 +324,7 @@ export default {
     collection () {
       if (this.loginIn) {
         var params = new URLSearchParams()
+        console.log(params)
         params.append('userId', this.userId)
         params.append('type', 0) // 0 代表歌曲， 1 代表歌单
         params.append('songId', this.id)
@@ -333,7 +334,8 @@ export default {
               this.$store.commit('setIsActive', true)
               this.notify('收藏成功', 'success')
             } else if (res.code === 2) {
-              this.notify('已收藏', 'warning')
+              this.$store.commit('setIsActive', false)
+              this.notify('取消收藏', 'warning')
             } else {
               this.$notify.error({
                 title: '收藏失败',

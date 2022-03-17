@@ -13,22 +13,16 @@
   </resultMap>
 
   <select id="selectScoreSum" resultType="java.lang.Integer">
-  SELECT COALESCE(sum(score),0) as score from rank_cmt where songListId = #{0} ;
+  SELECT COALESCE(sum(score),0) as score from rank_cmt where songListId = #{songListId)} ;
   </select>
 
   <select id="selectRankNum" resultType="java.lang.Integer">
-  SELECT COALESCE(count(id),0) as num from rank_cmt where songListId = #{0} ;
+  SELECT COALESCE(count(id),0) as num from rank_cmt where songListId = #{songListId)} ;
   </select>
 
   <select id="selectRanks" resultType="com.example.demo.domain.Rank">
     select * from rank_cmt;
   </select>
-
-
-  <insert id="insert" parameterType="com.example.demo.domain.Rank" >
-    insert into rank_cmt (songListId, consumerId,score)
-    values (#{songListId,jdbcType=BIGINT}, #{consumerId,jdbcType=BIGINT},#{score,jdbcType=INTEGER})
-  </insert>
 
   <insert id="insertSelective" parameterType="com.example.demo.domain.Rank" >
     <!--

@@ -24,6 +24,7 @@
           <span class="item-title">{{replaceFName(item.name)}}</span>
           <span class="item-name">{{replaceLName(item.name)}}</span>
           <span class="item-intro">{{item.introduction}}</span>
+
         </div>
       </li>
     </ul>

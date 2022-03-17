@@ -1,16 +1,25 @@
 // 匹配规则
 const rules = {
   username: [
-    { required: true, trigger: 'blur' }
+    { required: true, message: '请输入用户名', trigger: 'blur' },
+    { min: 3, max: 8, message: '长度在 3 到 5 个字符', trigger: 'blur' }
   ],
   password: [
-    { required: true, trigger: 'blur' }
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 3, max: 8, message: '长度在 3 到 8 个字符', trigger: 'blur' }
   ],
   sex: [
+    // eslint-disable-next-line standard/object-curly-even-spacing
     { required: true, message: '请选择性别', trigger: 'change' }
   ],
   phoneNum: [
-    { essage: '请选择日期', trigger: 'blur' }
+    { required: true, message: '请输入手机号码', trigger: 'blur' },
+    {validator: function (rule, value, callback){
+      if (/^1[34578]\d{9}$/.test(value) === false){
+        callback(new Error('手机格式错误'))
+      } else { callback() }
+    },
+    trigger: 'blur' }
   ],
   email: [
     { message: '请输入邮箱地址', trigger: 'blur' },

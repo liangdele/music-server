@@ -118,7 +118,7 @@ public class RecommendServiceImpl implements RecommendSongListService {
     @Override
     public List<ProductDTO> getSongListData() {
         List<ProductDTO> productDTOList = new ArrayList<>();
-        List<SongList> songLists = songListMapper.allSongList();
+        List<SongList> songLists = songListMapper.selectList(null);
         for (SongList songList : songLists) {
             ProductDTO productDTO = new ProductDTO();
             productDTO.setProductId(songList.getId());
@@ -143,7 +143,7 @@ public class RecommendServiceImpl implements RecommendSongListService {
         //如果推荐id为空
         if(CollectionUtils.isEmpty(productDTOList)){
             System.out.println("-----------推荐的歌单id集为空！");
-            return songListMapper.allSongList();
+            return songListMapper.selectList(null);
         }
         List<SongList> songList = new ArrayList<>();
         List<Integer> productIdList = productDTOList.stream().map(e -> e.getProductId()).collect(Collectors.toList());
@@ -153,7 +153,7 @@ public class RecommendServiceImpl implements RecommendSongListService {
         }
         if(CollectionUtils.isEmpty(songList)){
 
-            return songListMapper.allSongList();
+            return songListMapper.selectList(null);
         }
         return songList;
     }
@@ -163,7 +163,7 @@ public class RecommendServiceImpl implements RecommendSongListService {
         List<Song> songs = recommendSongs(userId);
         //如果推荐歌曲为空，就返回所有歌单
         if(CollectionUtils.isEmpty(songs)){
-            return songListMapper.allSongList();
+            return songListMapper.selectList(null);
         }
         //歌曲和歌单对应表
         List<ListSong> listSongLists = listSongMapper.allListSong();
@@ -178,7 +178,7 @@ public class RecommendServiceImpl implements RecommendSongListService {
         }
         //如果推荐歌单为空，返回所有歌单
         if(CollectionUtils.isEmpty(songLists)){
-            return songListMapper.allSongList();
+            return songListMapper.selectList(null);
         }
         return songLists;
     }

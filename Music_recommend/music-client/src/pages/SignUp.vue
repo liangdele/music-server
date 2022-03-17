@@ -5,7 +5,7 @@
     <div class="signUp-head">
       <span>用户注册</span>
     </div>
-    <el-form :model="registerForm" status-icon :rules="rules" ref="registerForm" label-width="70px" class="demo-ruleForm">
+    <el-form :model="registerForm" status-icon :rules="rules" ref="registerForm" label-width="70px" class="demo-ruleForm" >
       <el-form-item prop="username" label="用户名">
         <el-input v-model="registerForm.username" placeholder="用户名"></el-input>
       </el-form-item>
@@ -85,7 +85,7 @@ export default {
       params.append('username', this.registerForm.username)
       params.append('password', this.registerForm.password)
       params.append('sex', this.registerForm.sex)
-      params.append('phone_num', this.registerForm.phoneNum)
+      params.append('phoneNum', this.registerForm.phoneNum)
       params.append('email', this.registerForm.email)
       params.append('birth', datetime)
       params.append('introduction', this.registerForm.introduction)
@@ -99,8 +99,10 @@ export default {
             setTimeout(function () {
               _this.$router.push({path: '/'})
             }, 2000)
-          } else {
-            _this.notify('注册失败', 'error')
+          } else if (res.code === 15001){
+            _this.notify('用户已存在', 'error')
+          } else if (res.code === 15002){
+            _this.notify('手机已存在', 'error')
           }
         })
         .catch(err => {

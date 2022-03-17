@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.demo.domain.SongList;
 import org.springframework.stereotype.Repository;
 
@@ -7,16 +8,14 @@ import java.util.List;
 
 @Repository
 
-public interface SongListMapper {
-    int deleteByPrimaryKey(Integer id);
+public interface SongListMapper extends BaseMapper<SongList> {
+
 
     int insert(SongList record);
 
     int insertSelective(SongList record);
 
     SongList selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(SongList record);
 
     int updateByPrimaryKeyWithBLOBs(SongList record);
 
@@ -27,8 +26,6 @@ public interface SongListMapper {
     int updateSongListImg(SongList record);
 
     int deleteSongList(Integer id);
-
-    List<SongList> allSongList();
 
     List<SongList> likeTitle(String title);
 

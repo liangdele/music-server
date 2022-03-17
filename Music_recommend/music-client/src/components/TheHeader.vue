@@ -13,7 +13,7 @@
       </li>
       <li>
         <div class="header-search">
-          <input type="text" placeholder="搜索音乐" @keyup.enter="goSearch()" v-model="keywords">
+          <input type="text" placeholder="输入歌曲或歌手" @keyup.enter="goSearch()" v-model="keywords">
           <div class="search-btn"  @click="goSearch()" >
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-sousuo"></use>
@@ -45,7 +45,7 @@ export default {
   mixins: [mixin],
   data () {
     return {
-      musicName: 'Keyong-music',
+      musicName: 'music',
       navMsg: [], // 左侧导航栏
       loginMsg: [], // 右侧导航栏
       menuList: [], // 用户下拉菜单项

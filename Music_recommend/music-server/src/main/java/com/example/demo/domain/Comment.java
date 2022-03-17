@@ -1,92 +1,97 @@
 package com.example.demo.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 public class Comment {
-    private Integer id;
+  @TableId(type = IdType.AUTO)
+  private Integer id;
 
-    private Integer userId;
+  private Integer userId;
 
-    private Integer songId;
+  private Integer songId;
 
-    private Integer songListId;
+  private Integer songListId;
 
-    private String content;
+  @NotEmpty(message = "评论不可为空")
+  private String content;
 
-    private Date createTime;
+  private Date createTime;
 
-    private Byte type;
+  private Byte type;
 
-    private Integer up;
+  private Integer up;
 
-    public Integer getId() {
-        return id;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public Integer getUserId() {
-        return userId;
-    }
+  public Integer getUserId() {
+    return userId;
+  }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+  public void setUserId(Integer userId) {
+    this.userId = userId;
+  }
 
-    public Integer getSongId() {
-        return songId;
-    }
+  public Integer getSongId() {
+    return songId;
+  }
 
-    public void setSongId(Integer songId) {
-        this.songId = songId;
-    }
+  public void setSongId(Integer songId) {
+    this.songId = songId;
+  }
 
-    public Integer getSongListId() {
-        return songListId;
-    }
+  public Integer getSongListId() {
+    return songListId;
+  }
 
-    public void setSongListId(Integer songListId) {
-        this.songListId = songListId;
-    }
+  public void setSongListId(Integer songListId) {
+    this.songListId = songListId;
+  }
 
-    public String getContent() {
-        return content;
-    }
+  public String getContent() {
+    return content;
+  }
 
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
+  public void setContent(String content) {
+    this.content = content == null ? null : content.trim();
+  }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+  public Date getCreateTime() {
+    return createTime;
+  }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+  public void setCreateTime(Date createTime) {
+    this.createTime = createTime;
+  }
 
-    public Byte getType() {
-        return type;
-    }
+  public Byte getType() {
+    return type;
+  }
 
-    public void setType(Byte type) {
-        this.type = type;
-    }
+  public void setType(Byte type) {
+    this.type = type;
+  }
 
-    public Integer getUp() {
-        return up;
-    }
+  public Integer getUp() {
+    return up;
+  }
 
-    public void setUp(Integer up) {
-        this.up = up;
-    }
+  public void setUp(Integer up) {
+    this.up = up;
+  }
 
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this);
+  }
 }

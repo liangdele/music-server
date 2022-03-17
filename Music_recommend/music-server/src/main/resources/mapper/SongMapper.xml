@@ -47,24 +47,8 @@
     <!--<include refid="Blob_Column_List" />-->
     from song
   </select>
-  <select id="songOfSingerId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    select *
-    <!--<include refid="Base_Column_List" />-->
-    <!--,-->
-    <!--<include refid="Blob_Column_List" />-->
-    from song
-    where singer_id = #{singerId, jdbcType=INTEGER}
-  </select>
-  <select id="songOfId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    select *
-    from song
-    where id = #{id, jdbcType=INTEGER}
-  </select>
-  <select id="songOfSingerName" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select *
-    from song
-    where name like #{name, jdbcType=VARCHAR}
-  </select>
+
+
   <select id="songOfName" resultMap="BaseResultMap" parameterType="java.lang.String">
     select *
     from song

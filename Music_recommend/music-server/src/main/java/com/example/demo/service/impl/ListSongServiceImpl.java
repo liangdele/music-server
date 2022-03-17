@@ -1,5 +1,7 @@
 package com.example.demo.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.demo.dao.ListSongMapper;
 import com.example.demo.domain.ListSong;
 import com.example.demo.service.ListSongService;
@@ -9,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ListSongServiceImpl implements ListSongService {
+public class ListSongServiceImpl extends ServiceImpl<ListSongMapper,ListSong> implements ListSongService {
 
     @Autowired
     private ListSongMapper listSongMapper;
@@ -39,7 +41,8 @@ public class ListSongServiceImpl implements ListSongService {
     @Override
     public List<ListSong> listSongOfSongId(Integer songListId)
     {
-        return listSongMapper.listSongOfSongId(songListId);
+        ListSongMapper baseMapper = this.baseMapper;
+        return baseMapper.selectList(new QueryWrapper<ListSong>().eq("song_list_id",songListId));
     }
 
 }

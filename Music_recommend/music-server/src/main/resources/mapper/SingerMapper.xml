@@ -31,21 +31,9 @@
     from singer
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="allSinger" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from singer
-  </select>
-  <select id="singerOfName" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select *
-    from singer
-    where name like #{name, jdbcType=VARCHAR}
-  </select>
-  <select id="singerOfSex" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    select *
-    from singer
-    where sex = #{sex, jdbcType=INTEGER}
-  </select>
+
+
+
   <delete id="deleteSinger" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

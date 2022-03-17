@@ -94,8 +94,8 @@ export default {
     getUsers (id) {
       getUserOfId(id)
         .then(res => {
-          this.userPic.push(res[0].avator)
-          this.userName.push(res[0].username)
+          this.userPic.push(res.avator)
+          this.userName.push(res.username)
         })
         .catch(err => {
           console.log(err)
@@ -120,6 +120,8 @@ export default {
               this.textarea = ''
               this.getComment()
               this.notify('评论成功', 'success')
+            } else if (res.code === 1111) {
+              this.notify('评论不能为空', 'error')
             } else {
               this.notify('评论失败', 'error')
             }

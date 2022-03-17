@@ -18,6 +18,7 @@ import sun.misc.Request;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 
 @RestController
@@ -34,7 +35,10 @@ public class SongListController {
     public class MyPicConfig implements WebMvcConfigurer {
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            registry.addResourceHandler("/img/songListPic/**").addResourceLocations("file:E:\\.IDEA projects\\Music_recommend\\Music_recommend\\music-server\\img\\songListPic\\");
+      registry
+          .addResourceHandler("/img/songListPic/**")
+          .addResourceLocations(
+              "file:E:\\Users\\Lenovo\\Desktop\\Music_recommend\\Music_recommend\\music-server\\img\\songListPic\\");
         }
     }
 
@@ -66,19 +70,19 @@ public class SongListController {
         }
     }
 //获取全部歌单
-    @RequestMapping(value = "/songList2",method = RequestMethod.GET)
-    public Object allSongList(){
+    @GetMapping("/songList2")
+    public List<SongList> allSongList(){
         return songListService.allSongList();
     }
 
 //    获取推荐歌单
-    @RequestMapping(value = "/songList", method = RequestMethod.GET)
-    public Object recommendSongList(HttpServletRequest req, @RequestParam(value = "userId",defaultValue = " ") String userId){
+    @GetMapping( "/songList")
+    public Object recommendSongList(String userId){
 //        String userId2 = req.getParameter("userId");
 //        return songListService.allSongList();
         System.out.println("-------------userId=" + userId);
         //如果userId为空就返回所有歌单
-        if(StringUtils.isBlank(userId)) {
+        if(StringUtils.isEmpty(userId)) {
             return songListService.allSongList();
         }else{
             return recommendSongListService.recommendSongListByCollect(Integer.parseInt(userId));
@@ -103,17 +107,15 @@ public class SongListController {
     }
 
 //    返回标题包含文字的歌单
-    @RequestMapping(value = "/songList/likeTitle/detail", method = RequestMethod.GET)
-    public Object songListOfLikeTitle(HttpServletRequest req){
-        String title = req.getParameter("title").trim();
-        return songListService.likeTitle('%'+ title + '%');
+    @GetMapping( "/songList/likeTitle/detail")
+    public List<SongList> songListOfLikeTitle(String title){
+        return songListService.likeTitle(title);
     }
 
 //    返回指定类型的歌单
-    @RequestMapping(value = "/songList/style/detail", method = RequestMethod.GET)
-    public Object songListOfStyle(HttpServletRequest req){
-        String style = req.getParameter("style").trim();
-        return songListService.likeStyle('%'+ style + '%');
+    @GetMapping("/songList/style/detail")
+    public Object songListOfStyle(String style){
+        return songListService.likeStyle(style);
     }
 
 //    删除歌单

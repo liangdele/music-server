@@ -6,5 +6,5 @@ public interface RankService {
 
     int rankOfSongListId(Long songListId);
 
-    boolean addRank(Rank rank);
+    int addRank(Rank rank);
 }

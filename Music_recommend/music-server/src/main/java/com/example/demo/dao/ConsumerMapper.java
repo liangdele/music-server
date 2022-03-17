@@ -1,16 +1,15 @@
 package com.example.demo.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.demo.domain.Consumer;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ConsumerMapper {
+public interface ConsumerMapper extends BaseMapper<Consumer> {
 
     int deleteByPrimaryKey(Integer id);
-
-    int insert(Consumer record);
 
     int insertSelective(Consumer record);
 
@@ -19,8 +18,6 @@ public interface ConsumerMapper {
     int updateByPrimaryKeySelective(Consumer record);
 
     int updateByPrimaryKey(Consumer record);
-
-    int verifyPassword(String username, String password);
 
     int existUsername(String username);
 
@@ -37,5 +34,6 @@ public interface ConsumerMapper {
     List<Consumer> userOfId(Integer id);
 
     List<Consumer> loginStatus(String username);
+
 
 }

@@ -1,18 +1,14 @@
 package com.example.demo.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.demo.domain.Rank;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface RankMapper {
-    /**
-     * 插入评分记录
-     * @param record
-     * @return
-     */
-    int insert(Rank record);
+public interface RankMapper extends BaseMapper<Rank> {
+
 
     /**
      * 插入评分记录（不为空）

@@ -1,23 +1,36 @@
 package com.example.demo.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 public class Consumer {
-
+    @TableId(type = IdType.AUTO)
     private Integer id;
-
+    @NotEmpty(message = "用户必须提交")
+    @Length(min = 3,max = 8,message = "用户名必须是3-8位")
     private String username;
 
+    @NotEmpty(message = "密码必须填写")
+    @Length(min = 3,max = 8,message = "密码必须是3-8位")
     private String password;
 
     private Byte sex;
-
+    @Pattern(regexp = "^[1]([3-9])[0-9]{9}$",message = "手机号格式不正确")
+    @NotEmpty(message = "手机号不为空")
     private String phoneNum;
 
+    @NotEmpty(message = "邮箱必须填写")
     private String email;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
 
     private String introduction;

@@ -31,14 +31,6 @@
     from list_song
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="listSongOfSongId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    select *
-    <!--<include refid="Base_Column_List" />-->
-    <!--,-->
-    <!--<include refid="Blob_Column_List" />-->
-    from list_song
-    where song_list_id = #{songListId, jdbcType=INTEGER}
-  </select>
   <delete id="deleteListSong" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated

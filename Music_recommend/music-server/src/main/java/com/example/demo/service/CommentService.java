@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface CommentService {
 
-    boolean addComment(Comment comment);
+    int addComment(Comment comment);
 
-    boolean updateCommentMsg(Comment comment);
+    int updateCommentMsg(Comment comment);
 
     boolean deleteComment(Integer id);
 
@@ -17,5 +17,5 @@ public interface CommentService {
     List<Comment> commentOfSongId(Integer songId);
 
     List<Comment> commentOfSongListId(Integer songListId);
-
+   void checkUCommentUnique(String comment);
 }
